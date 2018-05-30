@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NewTwitActivity"
+    android:orientation="vertical">
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        >
+        
+        <Button
+            android:id="@+id/close"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:background="@drawable/close"
+            android:layout_margin="23dp"
+            />
+
+        <Button
+            android:id="@+id/new_twit"
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            android:background="@drawable/send_button"
+            android:layout_alignParentRight="true"
+            android:text="트윗"
+            android:textSize="16sp"
+            android:textColor="#ffffff"
+            android:layout_margin="13dp"
+            />
+        
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/empty_profile"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            />
+
+
+        <!-- textColor에 사용된 3자리 색상은 6자리를 2자리씩 같은 값으로 묶은 것 -->
+        <!-- 즉, #000은 #000000과 같다. -->
+        <!-- background의 4자리 색상은 1자리 투명도 + 3자리 색상을 나타낸다. -->
+        <!-- 0 (불투명도 0%) + 000 이다. #0000000 으로 써도 똑같다. (1자리 + 6자리) -->
+        <!-- 투명하게 한 것은 텍스트 편집창에 기본적으로 있는 밑줄을 없애기 위함 -->
+
+        <!-- height = match_parent로 하면 빈 화면 어디를 눌러도 편집기가 나와 편하다. -->
+        <!-- height = wrap_content로 하면 좁은 편집창을 누르기 어려워 불편 -->
+
+        <!-- hint 속성으로 텍스트가 비어있을 때 표시할 메세지를 정한다. -->
+
+        <!-- height = match_parent로 하면 힌트가 화면 중간에 나와 이상하다. -->
+        <!-- 내부 요소들이 위로 오도록 gravity를 top으로 지정한다. -->
+        <EditText
+            android:id="@+id/message"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="6dp"
+            android:textSize="17sp"
+            android:textColor="#000"
+
+            android:background="#0000"
+            android:gravity="top"
+            android:hint="무슨 일이 일어나고 있나요?"
+            />
+        
+    </LinearLayout>
+
+</LinearLayout>

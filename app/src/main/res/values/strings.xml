@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Twitter</string>
+
+    <string name="facebook_app_id">211698029434031</string>
+    <string name="fb_login_protocol_scheme">fb211698029434031</string>
+
+</resources>

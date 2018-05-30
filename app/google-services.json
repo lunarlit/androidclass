@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1009892352673",
+    "firebase_url": "https://twitter-be6e0.firebaseio.com",
+    "project_id": "twitter-be6e0",
+    "storage_bucket": "twitter-be6e0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1009892352673:android:acfd4a7dd5207f12",
+        "android_client_info": {
+          "package_name": "com.example.user.twitter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1009892352673-9uei5t1rq2s458nhlhn66d5qkr1dm77o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLZgbKILn3O1gszNllbEV0Hh4KiBhZCkQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
