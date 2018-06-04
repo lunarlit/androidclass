@@ -31,8 +31,6 @@ public class LoginActivity extends AppCompatActivity {
 
     CallbackManager callbackManager = CallbackManager.Factory.create();
     LoginButton loginButton;
-    Button customLogin;
-    LoginManager loginManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,50 +38,30 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         loginButton = findViewById(R.id.login_button);
-        customLogin = findViewById(R.id.custom_login);
-
         loginButton.setReadPermissions("public_profile");
 
-        loginManager = LoginManager.getInstance();
+        FacebookCallback<LoginResult> facebookCallback = new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                getProfileAndProceed(loginResult.getAccessToken());
+            }
 
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+            @Override
+            public void onCancel() {
 
-        if(isLoggedIn){
-            getProfileAndProceed(accessToken);
-        } else {
-            FacebookCallback<LoginResult> facebookCallback = new FacebookCallback<LoginResult>() {
-                @Override
-                public void onSuccess(LoginResult loginResult) {
-                    getProfileAndProceed(loginResult.getAccessToken());
-                }
+            }
 
-                @Override
-                public void onCancel() {
+            @Override
+            public void onError(FacebookException error) {
+                Toast.makeText(getApplicationContext(), "error!", Toast.LENGTH_SHORT).show();
+            }
+        };
 
-                }
-
-                @Override
-                public void onError(FacebookException error) {
-                    Toast.makeText(getApplicationContext(), "error!", Toast.LENGTH_SHORT).show();
-                }
-            };
-
-            loginButton.registerCallback(callbackManager, facebookCallback);
-
-            loginManager.registerCallback(callbackManager, facebookCallback);
-
-            customLogin.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ArrayList<String> permissions = new ArrayList<>();
-                    permissions.add("public_profile");
-                    loginManager.logInWithReadPermissions(LoginActivity.this, permissions);
-                }
-            });
-        }
+        loginButton.registerCallback(callbackManager, facebookCallback);
 
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

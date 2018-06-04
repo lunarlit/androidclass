@@ -43,13 +43,6 @@ public class NewTwitActivity extends AppCompatActivity {
         message = findViewById(R.id.message);
         // -------------------------------------------------------------------------
 
-        final int requestCode = getIntent().getIntExtra("request_code", 100);
-        final String mentionOn = getIntent().getStringExtra("mention_on");
-
-        if(requestCode == 101) {
-            newTwit.setText("답글하기");
-            message.setHint("답글 트윗하기");
-        }
 
         // ------------------------- 작동 기능 정의 --------------------------------
         // newTwit (새 트윗 보내기 버튼)를 눌렀을 때 실행될 기능 정의
@@ -68,9 +61,6 @@ public class NewTwitActivity extends AppCompatActivity {
 
                 // 소포에 message라는 이름을 붙여 내용 데이터를 담는다.
                 intent.putExtra("message", msg);
-
-                if(requestCode == 101)
-                    intent.putExtra("mention_on", mentionOn);
 
                 // 결과를 성공 (내용을 정상적으로 담았음)으로 설정하고 소포를 부친다.
                 setResult(RESULT_OK, intent);

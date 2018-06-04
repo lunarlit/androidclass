@@ -19,16 +19,10 @@ public class TwitAdapter extends BaseAdapter {
 
     // 뷰로 만들어낼 트윗의 목록
     ArrayList<Twit> twitList;
-    String userId;
 
     // 생성자에서 twitList를 초기화한다. (초기화하지 않으면 사용 불가)
-    public TwitAdapter(){
+    TwitAdapter(){
         twitList = new ArrayList<>();
-    }
-
-    public TwitAdapter(String userId){
-        this();
-        this.userId = userId;
     }
 
     // 목록의 개수를 요청하는 함수. 리스트의 사이즈를 돌려주도록 작성한다.
@@ -79,8 +73,6 @@ public class TwitAdapter extends BaseAdapter {
             viewHolder.writer = convertView.findViewById(R.id.writer);
             viewHolder.message = convertView.findViewById(R.id.message);
             viewHolder.profile = convertView.findViewById(R.id.profile);
-            viewHolder.mention = convertView.findViewById(R.id.mention);
-            viewHolder.like = convertView.findViewById(R.id.like);
 
             convertView.setTag(viewHolder);
 
@@ -116,31 +108,6 @@ public class TwitAdapter extends BaseAdapter {
                     .into(viewHolder.profile);
         }
 
-        viewHolder.mention.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, NewTwitActivity.class);
-                intent.putExtra("mention_to", t.writer);
-                intent.putExtra("mention_on", t.id);
-                intent.putExtra("request_code", 101);
-
-                ((Activity)context).startActivityForResult(intent, 101);
-            }
-        });
-
-        viewHolder.like.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((MainActivity)context).likeUnlike(t.id, t.likes);
-            }
-        });
-
-        if(t.likes != null && t.likes.get(userId) != null) {
-            viewHolder.like.setImageResource(R.drawable.like_button_liked);
-        } else {
-            viewHolder.like.setImageResource(R.drawable.like_button);
-        }
-
         // 완성된 뷰를 돌려줍니다.
         return convertView;
     }
@@ -152,16 +119,6 @@ public class TwitAdapter extends BaseAdapter {
     // 추가 후 뷰를 다시 그려야 화면에 반영되므로 notifyDataSetChanged()를 호출한다.
     void addItem(Twit twit) {
         twitList.add(0, twit);
-        notifyDataSetChanged();
-    }
-
-    void replaceItem(Twit twit) {
-        for (int i = 0; i < twitList.size(); i++){
-            if(twitList.get(i).id.equals(twit.id)) {
-                twitList.get(i).likes = twit.likes;
-                break;
-            }
-        }
         notifyDataSetChanged();
     }
 

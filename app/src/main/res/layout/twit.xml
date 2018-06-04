@@ -42,7 +42,6 @@ android:padding="12dp"
             android:layout_marginTop="8dp">
 
             <ImageView
-                android:id="@+id/mention"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="18dp"
@@ -57,7 +56,6 @@ android:padding="12dp"
                 />
 
             <ImageView
-                android:id="@+id/like"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="18dp"
