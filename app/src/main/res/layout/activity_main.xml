@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- FloatingActionButton이 ListView와 겹쳐서 떠있을 수 있게 하기 위해 -->
+<!-- RelativeLayout으로 변경 -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    >
+
+    <!-- Activity에서 어댑터를 연결해야 하므로 id를 작성한다. -->
+    <ListView
+        android:id="@+id/twitList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <!-- 우측 하단의 새 트윗 화면으로 이동하는 버튼 -->
+    <!-- android support design 라이브러리를 추가하면 사용할 수 있다. -->
+    <!-- 3주차 스터디 자료 42~43P 참고 -->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="20dp"
+        app:fabSize="normal"
+        android:src="@drawable/new_twit"
+        />
+
+</RelativeLayout>
