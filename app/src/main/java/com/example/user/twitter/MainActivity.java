@@ -52,14 +52,20 @@ public class MainActivity extends AppCompatActivity {
     // Firebase Firestore의 컨트롤 권한을 할당하여 사용하기 위한 변수
     FirebaseFirestore db;
     FirebaseStorage storage;
+
+    // Firebase Storage의 컨트롤 권한을 할당하여 사용하기 위한 변수
     StorageReference imagesRef;
 
     // Firestore 데이터베이스 중 twits 컬렉션을 컨트롤하기 위한 변수
     CollectionReference twitRef;
     // -------------------------------------------------------------------------
 
+
+
+    // ------------------ Facebook Profile 관련 변수 ---------------------------
     String userName;
     String userId;
+    // -------------------------------------------------------------------------
 
     // =========================================================================
     // onCreate
@@ -69,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // ----------------- Facebook Profile 변수 세팅 ----------------------------
+        // LoginActivity에서 전달된 이름과 id를 전역변수에 넣는다.
         userName = getIntent().getStringExtra("user_name");
         userId = getIntent().getStringExtra("user_id");
 
@@ -78,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
 
+        // Firebase Storage의 image 폴더 권한을 할당
         imagesRef = storage.getReference().child("images");
 
         // 위의의 db 변수를통해 Firestore의 twits 컬렉션 권한을 가져와 twitRef에 할당
