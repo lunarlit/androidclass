@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
     // Firestore 데이터베이스 중 twits 컬렉션을 컨트롤하기 위한 변수
     CollectionReference twitRef;
-    CollectionReference mentionRef;
     // -------------------------------------------------------------------------
 
     String userName;
@@ -81,10 +80,8 @@ public class MainActivity extends AppCompatActivity {
 
         imagesRef = storage.getReference().child("images");
 
-
         // 위의의 db 변수를통해 Firestore의 twits 컬렉션 권한을 가져와 twitRef에 할당
         twitRef = db.collection("twits");
-        mentionRef = db.collection("mentions");
         // -------------------------------------------------------------------------
 
 
@@ -149,8 +146,6 @@ public class MainActivity extends AppCompatActivity {
 
                         // 이 과정의 타입 변화가 익숙하다면 twit 변수를 생략하고 아래와 같이 축약하여 쓸 수 있다.
                         /*  twitAdapter.addItem(doc.getDocument().toObject(Twit.class));  */
-                    } else if(doc.getType() == DocumentChange.Type.MODIFIED){
-                        twitAdapter.replaceItem(twit);
                     }
                 }
             }
@@ -180,7 +175,6 @@ public class MainActivity extends AppCompatActivity {
 
         // 창구번호 100에서 새 트윗 내용을 얻으러 출발하였으므로 다시 100으로 돌아온다.
         // 한 화면에서 갔다올 수 있는 화면이 여러 개일 때 구분하기 위해 사용
-        // (현재는 하나뿐이므로 의미는 없음)
         if(requestCode == 100) {
 
             // 결과가 성공이라면
@@ -214,25 +208,6 @@ public class MainActivity extends AppCompatActivity {
                     newTwit(userName, msg, userId, null);
                 }
             }
-        } else if (requestCode == 101) {
-            if (resultCode == RESULT_OK) {
-                String msg = data.getStringExtra("message");
-                String mentionOn = data.getStringExtra("mention_on");
-
-                HashMap<String, Object> mention = new HashMap<>();
-
-                mention.put("writer", userName);
-                mention.put("message", msg);
-                mention.put("mentionOn", mentionOn);
-
-                if(userId != null)
-                    mention.put("picId", userId);
-
-                mention.put("timestamp", new Date());
-
-                mentionRef.add(mention);
-
-            }
         }
     }
     // -------------------------------------------------------------------------
@@ -263,18 +238,5 @@ public class MainActivity extends AppCompatActivity {
         twitRef.add(twit);
     }
 
-    public void likeUnlike(String twitId, Map<String, Boolean> likes) {
-
-        if(likes == null) {
-            likes = new HashMap<>();
-        }
-
-        if(likes.get(userId) != null){
-            likes.remove(userId);
-        } else {
-            likes.put(userId, true);
-        }
-        twitRef.document(twitId).update("likes", likes);
-    }
 }
 // MainActivity 종료

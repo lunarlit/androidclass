@@ -1,38 +1,26 @@
 package com.example.user.twitter;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
-import com.bumptech.glide.annotation.GlideModule;
-import com.bumptech.glide.module.AppGlideModule;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.Profile;
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class LoginActivity extends AppCompatActivity {
 
     CallbackManager callbackManager = CallbackManager.Factory.create();
     LoginButton loginButton;
-    Button customLogin;
-    LoginManager loginManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,48 +28,26 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         loginButton = findViewById(R.id.login_button);
-        customLogin = findViewById(R.id.custom_login);
-
         loginButton.setReadPermissions("public_profile");
 
-        loginManager = LoginManager.getInstance();
+        FacebookCallback<LoginResult> facebookCallback = new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                getProfileAndProceed(loginResult.getAccessToken());
+            }
 
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+            @Override
+            public void onCancel() {
 
-        if(isLoggedIn){
-            getProfileAndProceed(accessToken);
-        } else {
-            FacebookCallback<LoginResult> facebookCallback = new FacebookCallback<LoginResult>() {
-                @Override
-                public void onSuccess(LoginResult loginResult) {
-                    getProfileAndProceed(loginResult.getAccessToken());
-                }
+            }
 
-                @Override
-                public void onCancel() {
+            @Override
+            public void onError(FacebookException error) {
+                Toast.makeText(getApplicationContext(), "error!", Toast.LENGTH_SHORT).show();
+            }
+        };
 
-                }
-
-                @Override
-                public void onError(FacebookException error) {
-                    Toast.makeText(getApplicationContext(), "error!", Toast.LENGTH_SHORT).show();
-                }
-            };
-
-            loginButton.registerCallback(callbackManager, facebookCallback);
-
-            loginManager.registerCallback(callbackManager, facebookCallback);
-
-            customLogin.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ArrayList<String> permissions = new ArrayList<>();
-                    permissions.add("public_profile");
-                    loginManager.logInWithReadPermissions(LoginActivity.this, permissions);
-                }
-            });
-        }
+        loginButton.registerCallback(callbackManager, facebookCallback);
 
     }
 
