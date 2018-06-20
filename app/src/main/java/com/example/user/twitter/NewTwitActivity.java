@@ -46,7 +46,6 @@ public class NewTwitActivity extends AppCompatActivity {
 
     Uri imageUri;
     byte[] imageBytes;
-    String mCurrentPhotoPath;
     // -------------------------------------------------------------------------
 
     // =========================================================================
@@ -190,7 +189,6 @@ public class NewTwitActivity extends AppCompatActivity {
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(timeStamp, ".jpg", storageDir);
 
-        mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
 }
